@@ -3,7 +3,7 @@ body {
     padding: 0;
     line-height: 1.6;
     background-color: #000000; /* Fundo preto */
-    color: #433f3e; /* Cor padrão do texto (será sobrescrita para <p>) */
+    color: #ffffff; /* Cor padrão do texto para body */
     font-family: 'Stevie Sans', sans-serif;
 }
 
@@ -18,7 +18,7 @@ h2 { font-size: 2em; }
 h3 { font-size: 1.5em; }
 
 p {
-    color: #ffffff; /* Cor branca para os parágrafos */
+    color: #ffffff; /* Cor branca para todos os parágrafos */
 }
 
 a {
@@ -429,6 +429,10 @@ footer {
     margin-left: auto;
     margin-right: auto;
     text-align: center; /* Opcional: centraliza o texto e elementos inline dentro da seção */
+}
+
+.localizacao p { /* Aplica a cor branca aos <p> dentro da seção de localização também */
+    color: #ffffff;
 }
 
 .mapa-incorporado {
