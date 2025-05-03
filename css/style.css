@@ -2,13 +2,13 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    background-color: #000000;
-    color: #433f3e;
-    font-family: 'Stevie Sans', sans-serif; 
+    background-color: #000000; /* Fundo preto */
+    color: #433f3e; /* Cor padrão do texto (será sobrescrita para <p>) */
+    font-family: 'Stevie Sans', sans-serif;
 }
 
 h1, h2, h3 {
-    color: #5ec2bd;
+    color: #5ec2bd; /* Cor dos títulos */
     margin-bottom: 15px;
     line-height: 1.2;
 }
@@ -16,6 +16,10 @@ h1, h2, h3 {
 h1 { font-size: 2.5em; }
 h2 { font-size: 2em; }
 h3 { font-size: 1.5em; }
+
+p {
+    color: #ffffff; /* Cor branca para os parágrafos */
+}
 
 a {
     color: #5ec2bd;
@@ -226,7 +230,7 @@ header nav ul li a:hover {
 
 .hero p {
     font-size: 1.2em;
-    color: #555;
+    color: #ffffff; /* Branco no hero também */
     margin-bottom: 30px;
 }
 
@@ -248,6 +252,13 @@ header nav ul li a:hover {
 .servico-item {
     background-color: #fff;
     padding: 20px;
+    border-width: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+.servico-item-1 {
+    background-color: #fff;
+    padding: 0px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     text-align: center;
@@ -265,7 +276,7 @@ header nav ul li a:hover {
 }
 
 .servico-item p {
-    color: #555;
+    color: #ffffff; /* Branco nos itens de serviço também */
     margin-bottom: 15px;
 }
 
@@ -283,4 +294,148 @@ footer {
     color: #ffffff;
     padding: 30px 20px;
     text-align: center;
+}
+
+/* Estilos para a seção de conteúdo alternado complexo */
+.conteudo-alternado-complexo .container {
+    padding: 40px 20px;
+}
+
+.item-complexo {
+    display: flex;
+    flex-wrap: wrap; /* Para responsividade */
+    margin-bottom: 40px;
+    align-items: center; /* Alinhamento vertical */
+}
+
+.imagem-esquerda {
+    width: 40%;
+    margin-right: 30px;
+}
+
+.texto-direita {
+    width: 55%;
+}
+
+.texto-direita p {
+    color: #ffffff; /* Branco no texto à direita */
+}
+
+.item-complexo.invertido {
+    flex-direction: row-reverse; /* Inverte a ordem para imagem à direita */
+}
+
+.item-complexo.invertido .texto-esquerda {
+    width: 55%;
+    text-align: right;
+}
+
+.item-complexo.invertido .texto-esquerda p {
+    color: #ffffff; /* Branco no texto à esquerda (invertido) */
+}
+
+.item-complexo.invertido .imagem-direita {
+    width: 40%;
+    margin-left: 30px;
+}
+
+.imagem-esquerda img,
+.imagem-direita img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px; /* Opcional */
+}
+
+/* Estilos para telas menores */
+@media (max-width: 768px) {
+    .item-complexo,
+    .item-complexo.invertido {
+        flex-direction: column; /* Empilha em telas pequenas */
+        text-align: center;
+    }
+
+    .imagem-esquerda,
+    .imagem-direita {
+        width: 80%;
+        margin: 0 auto 20px;
+    }
+
+    .texto-direita,
+    .item-complexo.invertido .texto-esquerda {
+        width: 100%;
+        text-align: left; /* Reseta o alinhamento do texto */
+    }
+}
+
+/* Estilos para as novas seções */
+.introducao .container,
+.secao-quiropraxia .container,
+.secao-recovery .container,
+.secao-revitalize .container,
+.secao-pilates .container,
+.secao-transforme .container {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.introducao p,
+.secao-quiropraxia p,
+.secao-quiropraxia ul li,
+.secao-recovery p,
+.secao-revitalize p,
+.secao-revitalize ul li,
+.secao-pilates p,
+.secao-transforme p,
+.secao-transforme ul li {
+    color: #ffffff; /* Branco no texto das novas seções */
+    text-align: left; /* Alinhei o texto à esquerda nessas seções */
+}
+
+.secao-quiropraxia h3 {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.secao-quiropraxia ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.secao-quiropraxia ul li {
+    margin-bottom: 5px;
+}
+
+.secao-revitalize h3,
+.secao-transforme h3 {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.secao-revitalize ul,
+.secao-transforme ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.secao-revitalize ul li,
+.secao-transforme ul li {
+    margin-bottom: 5px;
+}
+.localizacao {
+    max-width: 1200px; /* Defina uma largura máxima para a seção, se desejar */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* Opcional: centraliza o texto e elementos inline dentro da seção */
+}
+
+.mapa-incorporado {
+    text-align: center; /* Centraliza o iframe dentro da div */
+}
+
+.mapa-incorporado iframe {
+    max-width: 100%; /* Garante que o iframe não ultrapasse a largura do pai */
+    height: auto; /* Mantém a proporção */
 }
