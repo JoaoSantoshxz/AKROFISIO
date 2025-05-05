@@ -2,13 +2,13 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    background-color: #000000; /* Fundo preto */
-    color: #ffffff; /* Cor padrão do texto para body */
+    background-color: #000000;
+    color: #ffffff; 
     font-family: 'Stevie Sans', sans-serif;
 }
 
 h1, h2, h3 {
-    color: #5ec2bd; /* Cor dos títulos */
+    color: #5ec2bd; 
     margin-bottom: 15px;
     line-height: 1.2;
 }
@@ -18,7 +18,7 @@ h2 { font-size: 2em; }
 h3 { font-size: 1.5em; }
 
 p {
-    color: #ffffff; /* Cor branca para todos os parágrafos */
+    color: #ffffff; 
 }
 
 a {
@@ -230,7 +230,7 @@ header nav ul li a:hover {
 
 .hero p {
     font-size: 1.2em;
-    color: #ffffff; /* Branco no hero também */
+    color: #ffffff;
     margin-bottom: 30px;
 }
 
@@ -276,7 +276,7 @@ header nav ul li a:hover {
 }
 
 .servico-item p {
-    color: #ffffff; /* Branco nos itens de serviço também */
+    color: #ffffff; 
     margin-bottom: 15px;
 }
 
@@ -296,16 +296,16 @@ footer {
     text-align: center;
 }
 
-/* Estilos para a seção de conteúdo alternado complexo */
+
 .conteudo-alternado-complexo .container {
     padding: 40px 20px;
 }
 
 .item-complexo {
     display: flex;
-    flex-wrap: wrap; /* Para responsividade */
+    flex-wrap: wrap;
     margin-bottom: 40px;
-    align-items: center; /* Alinhamento vertical */
+    align-items: center; 
 }
 
 .imagem-esquerda {
@@ -318,11 +318,11 @@ footer {
 }
 
 .texto-direita p {
-    color: #ffffff; /* Branco no texto à direita */
+    color: #ffffff; 
 }
 
 .item-complexo.invertido {
-    flex-direction: row-reverse; /* Inverte a ordem para imagem à direita */
+    flex-direction: row-reverse; 
 }
 
 .item-complexo.invertido .texto-esquerda {
@@ -331,7 +331,7 @@ footer {
 }
 
 .item-complexo.invertido .texto-esquerda p {
-    color: #ffffff; /* Branco no texto à esquerda (invertido) */
+    color: #ffffff; 
 }
 
 .item-complexo.invertido .imagem-direita {
@@ -344,14 +344,14 @@ footer {
     max-width: 100%;
     height: auto;
     display: block;
-    border-radius: 8px; /* Opcional */
+    border-radius: 8px; 
 }
 
-/* Estilos para telas menores */
+
 @media (max-width: 768px) {
     .item-complexo,
     .item-complexo.invertido {
-        flex-direction: column; /* Empilha em telas pequenas */
+        flex-direction: column; 
         text-align: center;
     }
 
@@ -364,11 +364,10 @@ footer {
     .texto-direita,
     .item-complexo.invertido .texto-esquerda {
         width: 100%;
-        text-align: left; /* Reseta o alinhamento do texto */
+        text-align: left; 
     }
 }
 
-/* Estilos para as novas seções */
 .introducao .container,
 .secao-quiropraxia .container,
 .secao-recovery .container,
@@ -388,8 +387,8 @@ footer {
 .secao-pilates p,
 .secao-transforme p,
 .secao-transforme ul li {
-    color: #ffffff; /* Branco no texto das novas seções */
-    text-align: left; /* Alinhei o texto à esquerda nessas seções */
+    color: #ffffff; 
+    text-align: left; 
 }
 
 .secao-quiropraxia h3 {
@@ -425,21 +424,21 @@ footer {
     margin-bottom: 5px;
 }
 .localizacao {
-    max-width: 1200px; /* Defina uma largura máxima para a seção, se desejar */
+    max-width: 1200px; 
     margin-left: auto;
     margin-right: auto;
-    text-align: center; /* Opcional: centraliza o texto e elementos inline dentro da seção */
+    text-align: center; 
 }
 
-.localizacao p { /* Aplica a cor branca aos <p> dentro da seção de localização também */
+.localizacao p { 
     color: #ffffff;
 }
 
 .mapa-incorporado {
-    text-align: center; /* Centraliza o iframe dentro da div */
+    text-align: center; 
 }
 
 .mapa-incorporado iframe {
-    max-width: 100%; /* Garante que o iframe não ultrapasse a largura do pai */
-    height: auto; /* Mantém a proporção */
+    max-width: 100%; 
+    height: auto; /
 }
