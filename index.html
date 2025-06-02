@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> AKROFISIO </title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="imagem/logo.png" type="">
 </head>
 <body>
@@ -13,7 +14,7 @@
             <div class="logo">
                 <img src="imagem/logo_erianrazera 2.png" alt="Logotipo da Sua Clínica" >
             </div>
-            <button class="menu-toggle" aria-expanded="false" aria-controls="nav-list">
+            <button class="menu-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Abrir/Fechar Menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -22,12 +23,36 @@
                 <ul id="nav-list">
                     <li><a href="index.html">Início</a></li>
                     <li><a href="servicos.html">Serviços</a></li>
-                    <li><a href="sobre.html">Sobre Nós</a></li>
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
+    <div class="floating-contact-form" id="contact-form-wrapper"> 
+        <button id="open-form-button" aria-expanded="false" aria-controls="contact-form-content" title="Abrir Formulário de Contato">
+            <i class="fas fa-comment-dots"></i> Contato Rápido
+        </button>
+
+        <div id="contact-form-content" class="form-hidden">
+            <h3>Fale Conosco Rapidamente!</h3>
+            <form action="https://formspree.io/f/SEU_FORM_ID" method="POST" id="quick-contact-form">
+                <label for="quick-name">Nome:</label>
+                <input type="text" id="quick-name" name="name" required placeholder="Seu nome completo">
+
+                <label for="quick-email">Email:</label>
+                <input type="email" id="quick-email" name="email" required placeholder="seu.email@exemplo.com">
+
+                <label for="quick-message">Mensagem:</label>
+                <textarea id="quick-message" name="message" rows="5" required placeholder="Sua mensagem..."></textarea>
+
+                <button type="submit">Enviar Mensagem</button>
+                <button type="button" id="close-form-button">Fechar</button>
+            </form>
+            <p class="form-feedback"></p> 
+        </div>
+    </div>
+
     <main>
         <section class="hero">
             <div class="container">
@@ -65,20 +90,6 @@
             </div>
         </section>
 
-        <section class="localizacao">
-            <h2>Nossa Localização</h2>
-            <div class="mapa-incorporado">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3643.6194004201466!2d-52.391853125113805!3d-24.04448297951818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ed751160cb222b%3A0x1998f933e16a3236!2sR.%20Pitanga%2C%201204%20-%20Centro%2C%20Campo%20Mour%C3%A3o%20-%20PR%2C%2087302-150!5e0!3m2!1spt-BR!2sbr!4v1746298432332!5m2!1spt-BR!2sbr" 
-                width="1000" 
-                height="950" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-        </section>
-
         <section class="contato-rapido">
             <div class="container">
                 <h2>Entre em Contato</h2>
@@ -89,17 +100,187 @@
     </main>
 
     <footer>
-        <div class="container">
+       
+            <div class="footer-contact-info">
+                <p><i class="fas fa-phone-alt"></i> (44) 9968-9629</p>
+                <p><i class="fas fa-envelope"></i> contato@akrofisio.com.br</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Exemplo, 123 - Centro, Cidade - UF</p>
+                <ul class="footer-social-icons">
+                    <li><a href="https://www.instagram.com/akrofisio/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://wa.me/554499689629" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+                    </ul>
+                 <div class="container">
             <p>&copy; 2025 Clinica de Fisoterapia AKROFISIO. Todos os direitos reservados.</p>
             <nav>
-                <ul>
-                    <li><a href="/politica-privacidade">Política de Privacidade</a></li>
-                    <li><a href="/termos-de-uso">Termos de Uso</a></li>
-                </ul>
+               
             </nav>
+            </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Lógica para feedback de formulário principal (se houver) ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const formStatusMessageMain = document.querySelector('.form-status-message-main'); 
+
+            if (status && formStatusMessageMain) {
+                let messageDiv = document.createElement('div');
+                messageDiv.classList.add('form-status-message');
+                messageDiv.textContent = ''; 
+
+                if (status === 'success') {
+                    messageDiv.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
+                    messageDiv.classList.add('success'); 
+                } else if (status === 'error') {
+                    messageDiv.textContent = 'Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.';
+                    messageDiv.classList.add('error'); 
+                }
+                
+                formStatusMessageMain.appendChild(messageDiv);
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // --- Lógica para abrir/fechar o formulário de contato flutuante ---
+            const openFormButton = document.getElementById('open-form-button');
+            const contactFormContent = document.getElementById('contact-form-content'); // O conteúdo interno do formulário
+            const closeFormButton = document.getElementById('close-form-button');
+            const draggableWrapper = document.getElementById('contact-form-wrapper'); // Adicionado para o floating form
+
+            if (openFormButton && contactFormContent && closeFormButton && draggableWrapper) {
+                openFormButton.addEventListener('click', function() {
+                    contactFormContent.classList.toggle('form-visible');
+                    contactFormContent.classList.toggle('form-hidden');
+                    openFormButton.setAttribute('aria-expanded', contactFormContent.classList.contains('form-visible'));
+                });
+
+                closeFormButton.addEventListener('click', function() {
+                    contactFormContent.classList.remove('form-visible');
+                    contactFormContent.classList.add('form-hidden');
+                    openFormButton.setAttribute('aria-expanded', 'false');
+                });
+            }
+
+            // --- Lógica do Menu Toggle (mobile) ---
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNav = document.querySelector('.main-nav');
+
+            if (menuToggle && mainNav) {
+                menuToggle.addEventListener('click', function() {
+                    menuToggle.classList.toggle('open');
+                    mainNav.classList.toggle('active');
+                    const isExpanded = menuToggle.classList.contains('open');
+                    menuToggle.setAttribute('aria-expanded', isExpanded);
+                });
+
+                // Opcional: Fechar menu mobile ao clicar em um item de link
+                mainNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (mainNav.classList.contains('active')) {
+                            menuToggle.classList.remove('open');
+                            mainNav.classList.remove('active');
+                            menuToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                });
+            }
+
+            // --- Lógica para Arrastar o Formulário Flutuante ---
+            // draggableWrapper já está definido acima
+            const dragHandle = openFormButton; // O botão de abertura será a alça de arrasto
+
+            let isDragging = false;
+            let offsetX, offsetY; // Deslocamento do mouse em relação ao canto do elemento
+
+            if (draggableWrapper && dragHandle) {
+                dragHandle.addEventListener('mousedown', (e) => {
+                    // Só permite arrastar se o formulário estiver visível
+                    if (!contactFormContent.classList.contains('form-visible')) {
+                        return; 
+                    }
+
+                    isDragging = true;
+
+                    // Garante que o elemento esteja posicionado fixo e com z-index alto
+                    draggableWrapper.style.position = 'fixed'; 
+                    draggableWrapper.style.zIndex = '1000'; 
+
+                    // Remove as propriedades bottom e right para que left e top possam controlar a posição
+                    draggableWrapper.style.bottom = 'auto';
+                    draggableWrapper.style.right = 'auto';
+
+                    // Calcula a diferença entre a posição do mouse e o canto superior esquerdo do elemento
+                    const rect = draggableWrapper.getBoundingClientRect();
+                    offsetX = e.clientX - rect.left;
+                    offsetY = e.clientY - rect.top;
+
+                    draggableWrapper.classList.add('dragging'); // Adiciona classe para feedback visual
+                    e.preventDefault(); // Evita a seleção de texto e outros comportamentos padrão do navegador
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+
+                    let newX = e.clientX - offsetX;
+                    let newY = e.clientY - offsetY;
+
+                    // Limita o arrasto para que o formulário não saia da tela
+                    const viewportWidth = window.innerWidth;
+                    const viewportHeight = window.innerHeight;
+                    const draggableWidth = draggableWrapper.offsetWidth;
+                    const draggableHeight = draggableWrapper.offsetHeight;
+
+                    if (newX < 0) newX = 0; // Impede sair pela esquerda
+                    if (newX + draggableWidth > viewportWidth) newX = viewportWidth - draggableWidth; // Impede sair pela direita
+                    if (newY < 0) newY = 0; // Impede sair pelo topo
+                    if (newY + draggableHeight > viewportHeight) newY = viewportHeight - draggableHeight; // Impede sair por baixo
+
+                    draggableWrapper.style.left = `${newX}px`;
+                    draggableWrapper.style.top = `${newY}px`;
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    draggableWrapper.classList.remove('dragging'); // Remove a classe 'dragging'
+                });
+
+                // Previne o comportamento padrão de arrastar imagens ou links no botão
+                dragHandle.ondragstart = function() { return false; };
+            }
+
+            // --- Lógica para Esconder/Mostrar HEADER e Formulário Flutuante ao rolar ---
+            const pageHeader = document.querySelector('header'); // Seleciona o elemento <header>
+            // mainNav já está definido acima
+            let lastScrollY = window.scrollY; // Armazena a última posição de rolagem
+
+            // Verifica se os elementos existem na página
+            if (pageHeader && mainNav && draggableWrapper && contactFormContent) { 
+                window.addEventListener('scroll', function() {
+                    // Condição para mostrar o header: rolagem para cima OU no topo OU menu mobile ativo
+                    let shouldShowHeader = window.scrollY < lastScrollY || window.scrollY <= 50 || mainNav.classList.contains('active');
+                    
+                    // Condição para mostrar o formulário flutuante: rolagem para cima OU no topo OU formulário visível
+                    let shouldShowFloatingForm = window.scrollY < lastScrollY || window.scrollY <= 50 || contactFormContent.classList.contains('form-visible');
+
+                    // Aplica a classe 'hidden' ao header
+                    if (shouldShowHeader) {
+                        pageHeader.classList.remove('hidden');
+                    } else if (window.scrollY > lastScrollY && window.scrollY > 150) { // Esconde apenas se rolar para baixo e passar do limiar
+                        pageHeader.classList.add('hidden');
+                    }
+
+                    // Aplica a classe 'hidden' ao formulário flutuante
+                    if (shouldShowFloatingForm) {
+                        draggableWrapper.classList.remove('hidden');
+                    } else if (window.scrollY > lastScrollY && window.scrollY > 150) { // Esconde apenas se rolar para baixo e passar do limiar
+                        draggableWrapper.classList.add('hidden');
+                    }
+
+                    lastScrollY = window.scrollY; // Atualiza a última posição de rolagem
+                });
+            }
+        });
+    </script>
 </body>
 </html>

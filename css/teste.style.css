@@ -24,15 +24,14 @@
 /* --- Base Styles --- */
 body {
     margin: 0;
-    /* Adiciona padding-top para compensar o header fixo */
-    padding-top: 100px; /* Igual à altura do seu header */ 
+    padding: 0;
     line-height: 1.6;
     background-color: var(--background-dark);
     color: var(--text-light);
     font-family: 'Stevie Sans', sans-serif; /* Certifique-se que esta fonte está importada */
 }
 
-h1, h2, h3, h4 { 
+h1, h2, h3 {
     color: var(--primary-color);
     margin-bottom: 15px;
     line-height: 1.2;
@@ -41,7 +40,6 @@ h1, h2, h3, h4 {
 h1 { font-size: 2.5em; }
 h2 { font-size: 2em; }
 h3 { font-size: 1.5em; }
-h4 { font-size: 1.2em; } 
 
 p {
     color: var(--text-light);
@@ -50,7 +48,7 @@ p {
 a {
     color: var(--primary-color);
     text-decoration: none;
-    transition: color 0.3s ease; 
+    transition: color 0.3s ease; /* Transição para links gerais */
 }
 
 a:hover {
@@ -75,7 +73,7 @@ a:hover {
 
 .button:hover {
     background-color: var(--secondary-color);
-    color: var(--text-light); 
+    color: var(--text-light); /* Mantém branco no hover, conforme seu exemplo */
 }
 
 /* --- Header --- */
@@ -85,20 +83,9 @@ header {
     padding: 0;
     height: 100px;
     box-shadow: 0 2px 5px var(--shadow-light);
-    /* MUDANÇAS AQUI para o header fixo e animável */
-    position: fixed; /* Troca de sticky para fixed */
+    position: sticky;
     top: 0;
-    left: 0; /* Garante que o header ocupe a largura total */
-    width: 100%; /* Garante que o header ocupe a largura total */
     z-index: 100;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Transição para esconder/mostrar */
-}
-
-/* Nova classe para esconder o header completo */
-header.hidden {
-    transform: translateY(-100%); /* Move o header para cima, para fora da tela */
-    opacity: 0;
-    pointer-events: none; /* Impede interações com o header escondido */
 }
 
 header .container {
@@ -106,11 +93,11 @@ header .container {
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
-    height: 100%; 
+    height: 100%; /* Garante que o container ocupe a altura do header */
 }
 
 header .logo img {
-    height: 90px; 
+    height: 90px; /* Ajuste se necessário para o tamanho da sua logo */
 }
 
 header nav ul {
@@ -132,7 +119,7 @@ header nav ul li a {
     color: var(--secondary-color);
     padding: 8px 12px;
     border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease; 
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição para cor também */
 }
 
 header nav ul li a:hover {
@@ -142,12 +129,13 @@ header nav ul li a:hover {
 
 /* --- Mobile Menu Toggle --- */
 .menu-toggle {
-    display: none; 
+    display: none; /* Esconde por padrão em desktop */
     background: none;
     border: none;
     cursor: pointer;
     padding: 10px;
     z-index: 101;
+    /* Posicionamento absoluto será definido em media query para mobile */
 }
 
 .menu-toggle span {
@@ -171,24 +159,24 @@ header nav ul li a:hover {
 
 /* --- Main Navigation (Mobile/Desktop) --- */
 .main-nav {
+    /* Em desktop, este estilo é sobrescrito */
     width: 100%;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-out;
     background-color: var(--background-light);
-    /* Estas propriedades são ajustadas pela media query em mobile */
-    position: absolute; 
-    top: 100px; 
+    position: absolute; /* Para menu mobile */
+    top: 100px; /* Abaixo do header */
     left: 0;
     box-shadow: 0 2px 5px var(--shadow-light);
-    z-index: 99; 
+    z-index: 99; /* Abaixo do header fixo e menu toggle */
 }
 
 .main-nav ul {
-    flex-direction: column; 
+    flex-direction: column; /* Em mobile, lista vertical */
     align-items: flex-start;
     padding: 20px;
-    margin: 0;
+    margin: 0; /* Remover margin padrão de ul */
 }
 
 .main-nav ul li {
@@ -200,92 +188,58 @@ header nav ul li a:hover {
     padding: 10px 0;
     color: var(--secondary-color);
     border-bottom: 1px solid var(--border-light);
-    width: 100%; 
+    width: 100%; /* Para que o link ocupe toda a largura */
 }
 
 .main-nav ul li:last-child a {
     border-bottom: none;
 }
 
-.main-nav.active { 
-    max-height: 500px; 
+/* Classe ativada por JS para mostrar o menu */
+.main-nav.active { /* Mudança de 'open' para 'active' para consistência com JS */
+    max-height: 500px; /* Valor suficiente para acomodar o menu */
 }
 
 /* --- Media Queries --- */
 @media (max-width: 768px) {
     .menu-toggle {
-        display: block; 
+        display: block; /* Mostra o botão de menu em mobile */
+        /* Removendo position: absolute e top/right aqui se o menu-toggle já estiver no header flex */
+        /* Senão, mantenha position: absolute e ajuste top/right */
     }
 
     header .container {
-        justify-content: space-between; 
+        justify-content: space-between; /* Alinha logo e botão */
         align-items: center;
     }
 
-    header nav { 
+    header nav { /* Esconde a navegação principal em mobile */
         display: none;
     }
 
-    /* Ajustes para o menu mobile quando aberto e o header fixo desaparece */
-    .main-nav.active { 
-        position: fixed; /* Torna o menu mobile fixo e independente do header */
-        top: 0; /* Ou 100px, se quiser que ele comece onde o header estaria */
-        left: 0;
-        z-index: 102; /* Maior que o header para ficar por cima */
-        background-color: var(--background-light); 
-        box-shadow: 0 2px 5px var(--shadow-light);
-        width: 100%;
-        height: 100vh; /* Ocupa a altura total da viewport para facilitar a rolagem */
-        overflow-y: auto; /* Permite rolagem se o conteúdo for muito grande */
-    }
-
-    /* Ajustes para a nova seção de contato em mobile */
-    .contact-grid {
-        flex-direction: column;
-    }
-
-    .contact-form-column,
-    .contact-info-column {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 30px; 
-    }
-
-    .contact-info-column {
-        margin-top: 0; 
-    }
-
-    .contact-map-section {
-        padding: 20px 0; 
-    }
-
-    /* Ajuste para o formulário flutuante em mobile */
-    .floating-contact-form {
-        max-width: calc(100vw - 40px); 
-    }
+    /* O JS vai adicionar/remover a classe 'active' para .main-nav */
 }
 
 @media (min-width: 769px) {
     .menu-toggle {
-        display: none; 
+        display: none; /* Esconde o botão de menu em desktop */
     }
 
-    header nav { 
+    header nav { /* Mostra a navegação principal em desktop */
         display: block;
     }
 
     .main-nav {
-        display: block !important; 
-        position: static; 
+        display: block !important; /* Força a exibição para desktop */
+        position: static; /* Volta a ser estático em desktop */
         width: auto;
-        max-height: none; 
-        box-shadow: none; 
-        background-color: transparent; 
-        transition: none; 
+        max-height: none; /* Remove limitação de altura */
+        box-shadow: none; /* Remove sombra em desktop */
+        background-color: transparent; /* Transparente no header */
     }
 
     .main-nav ul {
-        flex-direction: row; 
+        flex-direction: row; /* Volta a ser horizontal em desktop */
         align-items: center;
         padding: 0;
     }
@@ -303,18 +257,6 @@ header nav ul li a:hover {
         display: inline-block;
         padding: 8px 12px;
         border-bottom: none;
-    }
-
-    /* Desktop: layout de duas colunas para o contato */
-    .contact-grid {
-        display: flex;
-        justify-content: space-between;
-        gap: 40px; 
-    }
-
-    .contact-form-column,
-    .contact-info-column {
-        width: calc(50% - 20px); 
     }
 }
 
@@ -356,16 +298,19 @@ header nav ul li a:hover {
 }
 
 .servico-item {
-    background-color: var(--background-light); 
+    background-color: var(--background-light); /* Fundo branco */
     padding: 20px;
-    border-radius: 8px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); 
+    border-radius: 8px; /* Adicionado um border-radius para consistência */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Usando RGBA para sombra */
     text-align: center;
 }
 
-.servico-item-1 { 
+/* O servico-item-1 parece ser uma variação ou duplicata.
+   Se for para ser o mesmo, remova e use apenas .servico-item.
+   Se tiver diferenças específicas, adicione-as aqui. */
+.servico-item-1 {
     background-color: var(--background-light);
-    padding: 0px; 
+    padding: 0px; /* Mantenho padding 0px como no seu original */
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     text-align: center;
@@ -380,11 +325,11 @@ header nav ul li a:hover {
 
 .servico-item h3 {
     margin-bottom: 10px;
-    color: var(--text-dark); 
+    color: var(--text-dark); /* Títulos em fundo claro devem ser escuros */
 }
 
 .servico-item p {
-    color: var(--text-dark); 
+    color: var(--text-dark); /* Texto em fundo claro deve ser escuro */
     margin-bottom: 15px;
 }
 
@@ -399,7 +344,7 @@ header nav ul li a:hover {
 
 /* --- Footer --- */
 footer {
-    background-color: var(--secondary-color); 
+    background-color: var(--secondary-color); /* Cor de fundo do footer */
     color: var(--text-light);
     padding: 30px 20px;
     text-align: center;
@@ -411,19 +356,20 @@ footer nav ul {
     margin-top: 15px;
     display: flex;
     justify-content: center;
-    gap: 20px; 
+    gap: 20px; /* Espaçamento entre os itens do footer nav */
 }
 
 footer nav ul li a {
-    color: var(--text-light); 
+    color: var(--text-light); /* Links do footer brancos */
     transition: color 0.3s ease;
 }
 
 footer nav ul li a:hover {
-    color: var(--primary-color); 
+    color: var(--primary-color); /* Cor de hover para links do footer */
 }
 
-/* --- Conteúdo Alternado --- */
+
+/* --- Conteúdo Alternado (Sobre Nós/Serviços detalhados) --- */
 .conteudo-alternado-complexo .container {
     padding: 40px 20px;
 }
@@ -436,13 +382,13 @@ footer nav ul li a:hover {
 }
 
 .imagem-esquerda,
-.imagem-direita { 
+.imagem-direita { /* Unificado para aplicar styles base para ambos */
     width: 40%;
-    margin-right: 30px; 
+    margin-right: 30px; /* Default para imagem esquerda */
 }
 
 .texto-direita,
-.texto-esquerda { 
+.texto-esquerda { /* Unificado para aplicar styles base para ambos */
     width: 55%;
 }
 
@@ -455,12 +401,12 @@ footer nav ul li a:hover {
     flex-direction: row-reverse;
 }
 
-.item-complexo.invertido .imagem-direita { 
+.item-complexo.invertido .imagem-direita { /* Especifica imagem direita para o invertido */
     margin-left: 30px;
-    margin-right: 0; 
+    margin-right: 0; /* Remove margin-right da regra unificada */
 }
 
-.item-complexo.invertido .texto-esquerda { 
+.item-complexo.invertido .texto-esquerda { /* Especifica texto esquerda para o invertido */
     text-align: right;
 }
 
@@ -481,19 +427,19 @@ footer nav ul li a:hover {
 
     .imagem-esquerda,
     .imagem-direita,
-    .item-complexo.invertido .imagem-direita { 
+    .item-complexo.invertido .imagem-direita { /* Incluir a imagem direita para mobile */
         width: 80%;
-        margin: 0 auto 20px; 
+        margin: 0 auto 20px; /* Centraliza e adiciona margem inferior */
     }
 
     .texto-direita,
     .item-complexo.invertido .texto-esquerda {
         width: 100%;
-        text-align: left; 
+        text-align: left; /* Mantém o texto alinhado à esquerda em mobile */
     }
 }
 
-/* --- Seções de Detalhes de Serviços --- */
+/* --- Seções de Detalhes de Serviços (Quiropraxia, Recovery, etc.) --- */
 .introducao .container,
 .secao-quiropraxia .container,
 .secao-recovery .container,
@@ -519,14 +465,14 @@ footer nav ul li a:hover {
 
 .secao-quiropraxia h3,
 .secao-revitalize h3,
-.secao-transforme h3 { 
+.secao-transforme h3 { /* Agrupado para aplicar estilos comuns */
     margin-top: 20px;
     text-align: left;
 }
 
 .secao-quiropraxia ul,
 .secao-revitalize ul,
-.secao-transforme ul { 
+.secao-transforme ul { /* Agrupado para aplicar estilos comuns */
     list-style-type: disc;
     padding-left: 20px;
     margin-bottom: 20px;
@@ -534,249 +480,124 @@ footer nav ul li a:hover {
 
 .secao-quiropraxia ul li,
 .secao-revitalize ul li,
-.secao-transforme ul li { 
+.secao-transforme ul li { /* Agrupado para aplicar estilos comuns */
     margin-bottom: 5px;
 }
 
-/* --- Seções e Elementos do NOVO LAYOUT DE CONTATO --- */
-
-.contact-main-content {
-    padding: 60px 0; 
-    background-color: var(--background-dark); 
-}
-
-.contact-intro {
+/* --- Seção de Localização (Mapa) --- */
+.localizacao {
+    max-width: 1200px;
+    margin: 0 auto; /* Centraliza a seção de localização */
+    padding: 20px; /* Adiciona padding para não colar nas bordas */
     text-align: center;
-    margin-bottom: 50px;
 }
 
-.contact-intro h2 {
-    color: var(--primary-color);
-    font-size: 2.5em;
-    margin-bottom: 15px;
-}
-
-.contact-intro p {
+.localizacao p {
     color: var(--text-light);
-    font-size: 1.1em;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.contact-grid {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 40px; 
-    margin-bottom: 50px;
-}
-
-.contact-form-column,
-.contact-info-column {
-    background-color: var(--background-light); 
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px var(--shadow-medium);
-    flex: 1; 
-    min-width: 300px; 
-}
-
-.contact-form-column h3,
-.contact-info-column h3 {
-    color: var(--text-dark); 
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.main-contact-form .form-group {
     margin-bottom: 20px;
 }
 
-.main-contact-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: var(--text-dark);
-}
-
-.main-contact-form input[type="text"],
-.main-contact-form input[type="email"],
-.main-contact-form textarea {
-    width: calc(100% - 22px); 
-    padding: 10px;
-    border: 1px solid var(--border-medium);
-    border-radius: 4px;
-    font-size: 1em;
-    color: var(--text-dark);
-    background-color: var(--background-light);
-}
-
-.main-contact-form textarea {
-    resize: vertical;
-    min-height: 100px; 
-}
-
-.main-contact-form .submit-button {
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-    margin-top: 15px;
-    width: 100%; 
-    transition: background-color 0.3s ease;
-}
-
-.main-contact-form .submit-button:hover {
-    background-color: var(--secondary-color);
-}
-
-/* Mensagens de feedback para o formulário principal */
-.form-status-message-main {
-    margin-top: 20px;
-}
-
-.form-status-message { 
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 15px;
+.mapa-incorporado {
     text-align: center;
-    font-weight: bold;
 }
 
-.form-status-message.success {
-    background-color: #d4edda; 
-    color: #155724; 
-    border: 1px solid #c3e6cb; 
+.mapa-incorporado iframe {
+    max-width: 100%;
+    height: 450px; /* Altura padrão para o mapa, pode ajustar */
+    border: 0; /* Remove a borda padrão do iframe */
+    border-radius: 8px; /* Borda arredondada para o mapa */
+    box-shadow: 0 4px 8px var(--shadow-medium);
 }
 
-.form-status-message.error {
-    background-color: #f8d7da; 
-    color: #721c24; 
-    border: 1px solid #f5c6cb; 
+/* --- Seção de Contato (Página de Contato - se mantida) --- */
+/* Removida a duplicação de .contato .container e seus filhos.
+   Usei a primeira versão que estava mais completa.
+   Atenção: Se você ainda tiver a seção de contato normal no HTML,
+   certifique-se de que ela ainda exista.
+   Se não, esta seção pode ser removida. */
+.contato .container {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: var(--background-light); /* Fundo branco para a caixa de contato */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-light);
 }
 
+.contato h2 {
+    text-align: center;
+    color: var(--text-dark); /* Títulos escuros em fundo claro */
+    margin-bottom: 30px;
+    font-size: 2.2em;
+}
 
-.direct-contacts-list {
+.contato ul {
     list-style: none;
     padding: 0;
-    margin-bottom: 30px;
+    margin: 0;
 }
 
-.direct-contacts-list li {
+.contato ul li {
     margin-bottom: 15px;
     font-size: 1.1em;
-    color: var(--text-dark);
+    color: var(--text-dark); /* Texto da lista em fundo claro */
 }
 
-.direct-contacts-list li a,
-.direct-contacts-list li i { 
+.contato ul li a {
     display: flex;
     align-items: center;
-    color: var(--text-dark);
+    color: var(--text-dark); /* Cor padrão do texto do link em fundo claro */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.direct-contacts-list li a:hover {
-    color: var(--primary-color);
+.contato ul li a:hover {
+    color: var(--primary-color); /* Cor ao passar o mouse */
 }
 
-.direct-contacts-list li i {
+.contato ul li a i {
     margin-right: 12px;
-    font-size: 20px;
-    color: var(--primary-color); 
-}
-/* Cores específicas dos ícones */
-.direct-contacts-list li .fa-envelope { color: var(--email-red); }
-.direct-contacts-list li .fa-whatsapp { color: var(--whatsapp-green); }
-.direct-contacts-list li .fa-map-marker-alt { color: var(--primary-color); } 
-.direct-contacts-list li .fa-phone { color: var(--primary-color); } 
-
-
-.social-links-block {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-medium);
+    font-size: 28px;
+    transition: transform 0.3s ease;
 }
 
-.social-links-block h4 {
-    color: var(--text-dark);
-    text-align: center;
-    margin-bottom: 20px;
+.contato ul li a:hover i {
+    transform: scale(1.1);
 }
 
-.social-icons-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
+/* Cores específicas para cada ícone na seção de contato */
+.contato ul li a .fa-envelope { color: var(--email-red); }
+.contato ul li a .fa-instagram { color: var(--instagram-pink); }
+.contato ul li a .fa-tiktok { color: var(--social-dark); }
+.contato ul li a .fa-x-twitter { color: var(--social-dark); }
+.contato ul li a .fa-whatsapp { color: var(--whatsapp-green); }
 
-.social-icons-list li a {
-    font-size: 2.2em; 
-    color: var(--text-dark);
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.social-icons-list li a:hover {
-    transform: translateY(-3px);
-}
-
-.social-icons-list li .fa-instagram:hover { color: var(--instagram-pink); }
-.social-icons-list li .fa-tiktok:hover { color: var(--social-dark); } 
-.social-icons-list li .fa-x-twitter:hover { color: var(--social-dark); } 
+/* Cores dos ícones ao passar o mouse (opcional) */
+.contato ul li a:hover .fa-envelope { color: var(--email-red-hover); }
+.contato ul li a:hover .fa-instagram { color: var(--instagram-pink-hover); }
+.contato ul li a:hover .fa-tiktok { color: var(--social-dark-hover); }
+.contato ul li a:hover .fa-x-twitter { color: var(--social-dark-hover); }
+.contato ul li a:hover .fa-whatsapp { color: var(--whatsapp-green-hover); }
 
 
-/* --- Seção do Mapa --- */
-.contact-map-section {
-    padding: 50px 20px;
-    text-align: center;
-    background-color: var(--background-dark); 
-}
-
-.contact-map-section h3 {
-    color: var(--primary-color);
-    margin-bottom: 30px;
-}
-
-.map-embed iframe {
-    width: 100%;
-    max-width: 1000px; 
-    height: 450px;
-    border: 0;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px var(--shadow-strong);
-}
-
-
+/* --- Formulário de Contato Flutuante (Adicionado recentemente) --- */
 .floating-contact-form {
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    right: 20px;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    transition: none; /* Desativa transições para 'top'/'left'/'bottom'/'right' */
-}
-
-/* Estilo para quando o formulário estiver sendo arrastado */
-.floating-contact-form.dragging {
-    cursor: grabbing; 
-    opacity: 0.9; 
-    box-shadow: 0 8px 16px var(--shadow-strong); 
 }
 
 .floating-contact-form #open-form-button {
-    background-color: var(--primary-color); 
+    background-color: var(--primary-color); /* Usando a cor primária */
     color: var(--text-light);
     border: none;
     padding: 12px 20px;
     border-radius: 5px;
-    cursor: grab; /* Mãozinha para indicar que pode ser arrastado */
+    cursor: pointer;
     font-size: 1.1em;
     display: flex;
     align-items: center;
@@ -786,12 +607,8 @@ footer nav ul li a:hover {
 }
 
 .floating-contact-form #open-form-button:hover {
-    background-color: var(--secondary-color); 
+    background-color: var(--secondary-color); /* Cor de hover */
     transform: translateY(-2px);
-}
-
-.floating-contact-form #open-form-button:active {
-    cursor: grabbing; /* Mãozinha de "pegando" quando arrastando */
 }
 
 .floating-contact-form #open-form-button i {
@@ -828,7 +645,7 @@ footer nav ul li a:hover {
 
 .floating-contact-form h3 {
     text-align: center;
-    color: var(--text-dark); 
+    color: var(--text-dark); /* Título do formulário em fundo claro */
     margin-bottom: 20px;
 }
 
@@ -840,7 +657,7 @@ footer nav ul li a:hover {
 .floating-contact-form label {
     margin-bottom: 5px;
     font-weight: bold;
-    color: var(--text-dark); 
+    color: var(--text-dark); /* Labels em fundo claro */
 }
 
 .floating-contact-form input[type="text"],
@@ -852,8 +669,8 @@ footer nav ul li a:hover {
     border-radius: 4px;
     font-size: 1em;
     width: calc(100% - 22px);
-    color: var(--text-dark); 
-    background-color: var(--background-light); 
+    color: var(--text-dark); /* Cor do texto digitado */
+    background-color: var(--background-light); /* Fundo dos inputs */
 }
 
 .floating-contact-form textarea {
@@ -861,7 +678,7 @@ footer nav ul li a:hover {
 }
 
 .floating-contact-form button[type="submit"] {
-    background-color: #28a745; 
+    background-color: #28a745; /* Verde de sucesso (pode ser variável se usar muito) */
     color: var(--text-light);
     border: none;
     padding: 10px 15px;
@@ -877,7 +694,7 @@ footer nav ul li a:hover {
 }
 
 .floating-contact-form #close-form-button {
-    background-color: var(--secondary-color); 
+    background-color: var(--secondary-color); /* Cor do botão de fechar */
     color: var(--text-light);
     border: none;
     padding: 8px 12px;
@@ -890,7 +707,7 @@ footer nav ul li a:hover {
 }
 
 .floating-contact-form #close-form-button:hover {
-    background-color: #5a6268; 
+    background-color: #5a6268; /* Tom mais escuro do cinza */
 }
 
 .floating-contact-form .form-feedback {
@@ -913,8 +730,8 @@ footer nav ul li a:hover {
 
 /* Estilo para campos de formulário inválidos */
 .floating-contact-form input.invalid {
-    border-color: #dc3545; 
-    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); 
+    border-color: #dc3545; /* Borda vermelha */
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); /* Sombra vermelha suave */
 }
 
 /* Media Queries para Responsividade do Formulário Flutuante */
@@ -924,7 +741,7 @@ footer nav ul li a:hover {
         right: 10px;
     }
     .floating-contact-form #contact-form-content {
-        width: calc(100vw - 40px); 
-        max-width: 350px; 
+        width: calc(100vw - 40px); /* Ocupa quase toda a largura da tela */
+        max-width: 350px; /* Limita a largura máxima mesmo em telas pequenas */
     }
 }

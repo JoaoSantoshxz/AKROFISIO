@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AKROFISIO - CONTATO</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="imagem/logo.png" type="">
+    <link rel="icon" href="imagem/logo.png" type="image/png">
 </head>
+
 <body>
     <header>
         <div class="container">
             <div class="logo">
-                <img src="imagem/logo_erianrazera 2.png" alt="Logotipo da Sua Clínica" >
+                <img src="imagem/logo_erianrazera 2.png" alt="Logotipo da Sua Clínica">
             </div>
-            <button class="menu-toggle" aria-expanded="false" aria-controls="nav-list">
+            <button class="menu-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Abrir/Fechar Menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -22,50 +25,197 @@
                 <ul id="nav-list">
                     <li><a href="index.html">Início</a></li>
                     <li><a href="servicos.html">Serviços</a></li>
-                    <li><a href="sobre.html">Sobre Nós</a></li>
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
     <main>
-        <section class="contato">
+        <section class="contact-main-content">
             <div class="container">
-                <h2>Entre em Contato</h2>
-                <ul>
-                    <li>
-                        <strong>Email:</strong>
-                        <a href="https://mail.google.com/mail/u/0/#sent/QgrcJHsTmZxRgFVVVfckMFQxBXtZSFWmvPq">Contato@akrofisio.com.br</a>
-                    </li>
-                    <li>
-                        <strong>Instagram:</strong>
-                        <a href="https://www.instagram.com/akrofisio/" target="_blank" rel="noopener noreferrer">@akrofisio</a>
-                    </li>
-                    <li>
-                        <strong>Tiktok:</strong> <a href="https://www.tiktok.com/@akrofisio" target="_blank" rel="noopener noreferrer">@akrofisio</a>
-                    </li>
-                    <li>
-                        <strong>Twitter:</strong> <a href="http://www.x.com/akrofisio" target="_blank" rel="noopener noreferrer">@akrofisio</a>
-                    </li>
-                    <li>
-                        <strong>WhatsApp:</strong>
-                        <a href="https://wa.me/554498551727">+55 44 9968-9629</a>
-                    </li>
-                </ul>
+                <div class="contact-intro">
+                    <h2>Gostaríamos de saber sua opinião.</h2>
+                    <p>Escolha o método mais conveniente e nós lhe retornaremos assim que possível.</p>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-form-column">
+                        <h3>Envie uma Mensagem</h3>
+                        <form action="send_email.php" method="POST" class="main-contact-form">
+                            <div class="form-group">
+                                <label for="name">Nome:</label>
+                                <input type="text" id="name" name="name" required placeholder="Seu nome completo">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Endereço de E-mail:</label>
+                                <input type="email" id="email" name="email" required placeholder="seu.email@exemplo.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Mensagem:</label>
+                                <textarea id="message" name="message" rows="7" required placeholder="Sua mensagem..."></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-button">Enviar Mensagem</button>
+                        </form>
+                        <div class="form-status-message-main"></div> 
+                    </div>
+
+                    <div class="contact-info-column">
+                        <h3>Nossos Contatos</h3>
+                        <ul class="direct-contacts-list">
+                            <li>
+                                <a href="https://wa.me/554499689629?text=Olá!%20Gostaria%20de%20agendar%20um%20horário." target="_blank" rel="noopener noreferrer" title="Fale conosco pelo WhatsApp">
+                                    <i class="fab fa-whatsapp"></i> +55 44 9968-9629
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:contato@akrofisio.com.br" title="Enviar e-mail para AKROFISIO">
+                                    <i class="fas fa-envelope"></i> contato@akrofisio.com.br
+                                </a>
+                            </li>
+                             <li>
+                                 <i class="fas fa-map-marker-alt"></i> Av. Exemplo, 123 - Centro, Cidade - UF, CEP 00000-000
+                             </li>
+                             <li>
+                                 <i class="fas fa-phone"></i> (44) 9968-9629
+                             </li>
+                        </ul>
+
+                        <div class="social-links-block">
+                            <h4>Siga-nos:</h4>
+                            <ul class="social-icons-list">
+                                <li>
+                                    <a href="https://www.instagram.com/akrofisio/" target="_blank" rel="noopener noreferrer" title="Visitar Instagram da AKROFISIO">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.tiktok.com/@akrofisio" target="_blank" rel="noopener noreferrer" title="Visitar TikTok da AKROFISIO">
+                                        <i class="fab fa-tiktok"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://x.com/akrofisio" target="_blank" rel="noopener noreferrer" title="Visitar X (Twitter) da AKROFISIO">
+                                        <i class="fab fa-x-twitter"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-map-section">
+                    <h3>Onde nos Encontrar</h3>
+                    <div class="map-embed">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.433606771038!2d-46.63419508493132!3d-23.55052008468798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59a6d0d2b51b%3A0x6e7d6b3c9b8f2c2!2sRua%20Augusta%2C%202000%20-%20Consola%C3%A7%C3%A3o%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2001304-000!5e0!3m2!1spt-BR!2sbr!4v1678901234567!5m2!1spt-BR!2sbr" 
+                            width="100%" 
+                            height="450" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
             </div>
         </section>
     </main>
-    <footer>
-        <div class="container">
+
+     <footer>
+       
+            <div class="footer-contact-info">
+                <p><i class="fas fa-phone-alt"></i> (44) 9968-9629</p>
+                <p><i class="fas fa-envelope"></i> contato@akrofisio.com.br</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Exemplo, 123 - Centro, Cidade - UF</p>
+                <ul class="footer-social-icons">
+                    <li><a href="https://www.instagram.com/akrofisio/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://wa.me/554499689629" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+                    </ul>
+                 <div class="container">
             <p>&copy; 2025 Clinica de Fisoterapia AKROFISIO. Todos os direitos reservados.</p>
             <nav>
-                <ul>
-                    <li><a href="/politica-privacidade">Política de Privacidade</a></li>
-                    <li><a href="/termos-de-uso">Termos de Uso</a></li>
-                </ul>
+               
             </nav>
+            </div>
         </div>
     </footer>
-    <script src="script.js"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Lógica para feedback de formulário principal ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const formStatusMessageMain = document.querySelector('.form-status-message-main'); 
+
+            if (status && formStatusMessageMain) {
+                let messageDiv = document.createElement('div');
+                messageDiv.classList.add('form-status-message');
+                messageDiv.textContent = ''; 
+
+                if (status === 'success') {
+                    messageDiv.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
+                    messageDiv.classList.add('success'); 
+                } else if (status === 'error') {
+                    messageDiv.textContent = 'Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.';
+                    messageDiv.classList.add('error'); 
+                }
+                
+                formStatusMessageMain.appendChild(messageDiv);
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // --- Lógica do Menu Toggle (mobile) ---
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNav = document.querySelector('.main-nav');
+
+            if (menuToggle && mainNav) {
+                menuToggle.addEventListener('click', function() {
+                    menuToggle.classList.toggle('open');
+                    mainNav.classList.toggle('active');
+                    const isExpanded = menuToggle.classList.contains('open');
+                    menuToggle.setAttribute('aria-expanded', isExpanded);
+                });
+
+                // Opcional: Fechar menu mobile ao clicar em um item de link
+                mainNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (mainNav.classList.contains('active')) {
+                            menuToggle.classList.remove('open');
+                            mainNav.classList.remove('active');
+                            menuToggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                });
+            }
+
+            // --- Lógica para Esconder/Mostrar HEADER ao rolar ---
+            const pageHeader = document.querySelector('header'); // Seleciona o elemento <header>
+            let lastScrollY = window.scrollY; // Armazena a última posição de rolagem
+
+            // Verifica se os elementos existem na página
+            if (pageHeader && mainNav) { 
+                window.addEventListener('scroll', function() {
+                    // Condição para mostrar o header: rolagem para cima OU no topo OU menu mobile ativo
+                    let shouldShowHeader = window.scrollY < lastScrollY || window.scrollY <= 50 || mainNav.classList.contains('active');
+                    
+                    // Aplica a classe 'hidden' ao header
+                    if (shouldShowHeader) {
+                        pageHeader.classList.remove('hidden');
+                    } else if (window.scrollY > lastScrollY && window.scrollY > 150) { // Esconde apenas se rolar para baixo e passar do limiar
+                        pageHeader.classList.add('hidden');
+                    }
+
+                    lastScrollY = window.scrollY; // Atualiza a última posição de rolagem
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>
