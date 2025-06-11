@@ -24,7 +24,9 @@
             <nav class="main-nav">
                 <ul id="nav-list">
                     <li><a href="index.html">Início</a></li>
+                    <li><a href="clinica.html">A Clinica</a></li>
                     <li><a href="servicos.html">Serviços</a></li>
+                    <li><a href="blog.html">Blog</a></li>
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
             </nav>
@@ -42,7 +44,8 @@
                 <div class="contact-grid">
                     <div class="contact-form-column">
                         <h3>Envie uma Mensagem</h3>
-                        <form action="send_email.php" method="POST" class="main-contact-form">
+                        <!-- AÇÃO DO FORMULÁRIO ALTERADA PARA FORMSPREE -->
+                        <form action="https://formspree.io/f/YOUR_FORMSPREE_ID_FOR_MAIN_FORM" method="POST" class="main-contact-form">
                             <div class="form-group">
                                 <label for="name">Nome:</label>
                                 <input type="text" id="name" name="name" required placeholder="Seu nome completo">
