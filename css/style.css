@@ -254,10 +254,10 @@ header nav ul li a:hover {
 
     /* Ajuste para o formulário flutuante em mobile */
     .floating-contact-form {
-        bottom: 10px;
-        right: 10px; /* Ajusta a posição para não sair da tela em mobile */
-        left: auto; /* Garante que ele se ancore à direita em mobile */
+        bottom: 0;
+        left: 0; /* Garante que ele se ancore à direita em mobile */
         max-width: calc(100vw - 40px);
+        padding: 10px;
     }
     .floating-contact-form #contact-form-content {
         width: calc(100vw - 40px);

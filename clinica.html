@@ -34,29 +34,6 @@
         </div>
     </header>
     
-    <div class="floating-contact-form" id="contact-form-wrapper">
-        <button id="open-form-button" aria-expanded="false" aria-controls="contact-form-content" title="Abrir Formulário de Contato">
-            <i class="fas fa-comment-dots"></i> Contato Rápido
-        </button>
-
-        <div id="contact-form-content" class="form-hidden">
-            <h3>Fale Conosco Rapidamente!</h3>
-            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" id="quick-contact-form">
-                <label for="quick-name">Nome:</label>
-                <input type="text" id="quick-name" name="name" required placeholder="Seu nome completo">
-
-                <label for="quick-email">Email:</label>
-                <input type="email" id="quick-email" name="email" required placeholder="seu.email@exemplo.com">
-
-                <label for="quick-message">Mensagem:</label>
-                <textarea id="quick-message" name="message" rows="5" required placeholder="Sua mensagem..."></textarea>
-
-                <button type="submit">Enviar Mensagem</button>
-                <button type="button" id="close-form-button">Fechar</button>
-            </form>
-            <p class="form-feedback"></p>
-        </div>
-    </div>
     <!-- Fim do formulário flutuante -->
 
     <main>
@@ -703,6 +680,230 @@
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Variáveis Globais e Seletores de Elementos ---
+
+    // Menu Hambúrguer
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    const navList = document.querySelector('#nav-list');
+
+    // Formulário de Contato Flutuante (Contato Rápido)
+    const openFormButton = document.getElementById('open-form-button');
+    const closeFormButton = document.getElementById('close-form-button');
+    const contactFormContent = document.getElementById('contact-form-content');
+    const quickContactForm = document.getElementById('quick-contact-form');
+    const formFeedback = document.querySelector('.form-feedback');
+    const draggableWrapper = document.getElementById('contact-form-wrapper');
+
+    // Elementos da Página e Rolagem
+    const pageHeader = document.querySelector('header');
+    let lastScrollY = window.scrollY;
+
+    // Itens de Serviço para Animação de Scroll
+    const serviceItems = document.querySelectorAll(".servico-item");
+
+
+    // --- Funções Auxiliares ---
+
+    /**
+     * Alterna a visibilidade do formulário de contato flutuante.
+     */
+    function toggleFormVisibility() {
+        if (contactFormContent && openFormButton) {
+            contactFormContent.classList.toggle('form-hidden');
+            contactFormContent.classList.toggle('form-visible');
+            openFormButton.setAttribute('aria-expanded', contactFormContent.classList.contains('form-visible'));
+        }
+    }
+
+    /**
+     * Verifica e adiciona a classe 'aparecer' aos itens de serviço quando entram no viewport.
+     */
+    function checkServiceItemsVisibility() {
+        serviceItems.forEach((item) => {
+            const posicao = item.getBoundingClientRect().top;
+            const alturaTela = window.innerHeight;
+
+            // Se o item está visível na tela (com uma pequena margem de 100px)
+            if (posicao < alturaTela - 100) {
+                item.classList.add("aparecer");
+            }
+            // Opcional: Se quiser que eles desapareçam ao rolar para cima, você pode adicionar um 'else' aqui
+            // else {
+            //     item.classList.remove("aparecer");
+            // }
+        });
+    }
+
+    // --- Event Listeners e Lógica Principal ---
+
+    // Lógica do Menu Hambúrguer
+    if (menuToggle && mainNav && navList) {
+        menuToggle.addEventListener('click', function() {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.classList.toggle('open');
+            mainNav.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        navList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (mainNav.classList.contains('active')) {
+                    menuToggle.classList.remove('open');
+                    mainNav.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    }
+
+    // Lógica para Abrir/Fechar o Formulário de Contato Flutuante
+    if (openFormButton) {
+        openFormButton.addEventListener('click', toggleFormVisibility);
+    }
+    if (closeFormButton) {
+        closeFormButton.addEventListener('click', toggleFormVisibility);
+    }
+
+    // Lógica de Envio do Formulário Rápido (Formspree)
+    if (quickContactForm && formFeedback) {
+        quickContactForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(quickContactForm);
+            const response = await fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", { // Use o ID do seu Formspree aqui
+                method: quickContactForm.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                formFeedback.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
+                formFeedback.classList.remove('error');
+                formFeedback.classList.add('success');
+                formFeedback.style.display = 'block';
+                quickContactForm.reset();
+                setTimeout(() => {
+                    formFeedback.style.display = 'none';
+                    toggleFormVisibility();
+                }, 5000);
+            } else {
+                const data = await response.json();
+                let errorMessage = 'Ocorreu um erro ao enviar a mensagem. Tente novamente.';
+                if (data.errors) {
+                    errorMessage = data.errors.map(error => error.message).join(', ');
+                }
+                formFeedback.textContent = errorMessage;
+                formFeedback.classList.remove('success');
+                formFeedback.classList.add('error');
+                formFeedback.style.display = 'block';
+                setTimeout(() => {
+                    formFeedback.style.display = 'none';
+                }, 5000);
+            }
+        });
+    }
+
+    // Lógica para Arrastar o Formulário Flutuante
+    let isDragging = false;
+    let offsetX, offsetY;
+    const dragHandle = openFormButton;
+
+    if (draggableWrapper && dragHandle && contactFormContent) {
+        dragHandle.addEventListener('mousedown', (e) => {
+            if (!contactFormContent.classList.contains('form-visible')) {
+                return;
+            }
+            isDragging = true;
+            draggableWrapper.style.position = 'fixed';
+            draggableWrapper.style.zIndex = '1000';
+            draggableWrapper.style.bottom = 'auto';
+            draggableWrapper.style.right = 'auto';
+            const rect = draggableWrapper.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+            draggableWrapper.classList.add('dragging');
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            let newX = e.clientX - offsetX;
+            let newY = e.clientY - offsetY;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const draggableWidth = draggableWrapper.offsetWidth;
+            const draggableHeight = draggableWrapper.offsetHeight;
+
+            if (newX < 0) newX = 0;
+            if (newX + draggableWidth > viewportWidth) newX = viewportWidth - draggableWidth;
+            if (newY < 0) newY = 0;
+            if (newY + draggableHeight > viewportHeight) newY = viewportHeight - draggableHeight;
+
+            draggableWrapper.style.left = `${newX}px`;
+            draggableWrapper.style.top = `${newY}px`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            draggableWrapper.classList.remove('dragging');
+        });
+
+        if (dragHandle) {
+            dragHandle.ondragstart = function() { return false; };
+        }
+    }
+
+    // Lógica para Esconder/Mostrar HEADER e Formulário Flutuante ao rolar
+    if (pageHeader && mainNav && draggableWrapper && contactFormContent) {
+        window.addEventListener('scroll', function() {
+            let shouldShowHeaderOrForm = mainNav.classList.contains('active') || contactFormContent.classList.contains('form-visible');
+
+            if (window.scrollY > lastScrollY && window.scrollY > 150 && !shouldShowHeaderOrForm) {
+                pageHeader.classList.add('hidden');
+                draggableWrapper.classList.add('hidden');
+            } else if (window.scrollY < lastScrollY || window.scrollY <= 50 || shouldShowHeaderOrForm) {
+                pageHeader.classList.remove('hidden');
+                draggableWrapper.classList.remove('hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+    }
+
+    // --- Lógica para a seção de serviços aparecer ao rolar ---
+    // Chama a função ao carregar a página e também a cada rolagem
+    checkServiceItemsVisibility(); // Verifica ao carregar
+
+    // Adiciona o listener para o evento de rolagem
+    window.addEventListener('scroll', checkServiceItemsVisibility);
+
+    // Lógica para feedback de formulário principal (URL params - MENOS USADO NESTA PÁGINA)
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    const formStatusMessageMain = document.querySelector('.form-status-message-main'); // Pode não existir nesta página, mas mantém para compatibilidade
+
+    if (status && formStatusMessageMain) {
+        let messageDiv = document.createElement('div');
+        messageDiv.classList.add('form-status-message');
+        messageDiv.textContent = '';
+
+        if (status === 'success') {
+            messageDiv.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
+            messageDiv.classList.add('success');
+        } else if (status === 'error') {
+            messageDiv.textContent = 'Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.';
+            messageDiv.classList.add('error');
+        }
+
+        formStatusMessageMain.appendChild(messageDiv);
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
+
 
     </script>
 </body>
