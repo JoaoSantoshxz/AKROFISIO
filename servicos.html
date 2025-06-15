@@ -43,7 +43,7 @@
         <div class="container">
             <div class="item-complexo">
                 <div class="imagem-esquerda">
-                    <img src="imagem/teste2.jpg" alt="Imagem Esquerda">
+                    <img src="imagem/WhatsApp Image 2025-06-11 at 22.17.12.jpeg" alt="Imagem Esquerda">
                 </div>
                 <div class="texto-direita">
                     <h3>Conquiste:</h3>
@@ -124,9 +124,9 @@
      <footer>
        
             <div class="footer-contact-info">
-                <p><i class="fas fa-phone-alt"></i> (44) 9968-9629</p>
+                <p><i class="fas fa-phone-alt"></i> (44) 99107-6554</p>
                 <p><i class="fas fa-envelope"></i> contato@akrofisio.com.br</p>
-                <p><i class="fas fa-map-marker-alt"></i> Av. Exemplo, 123 - Centro, Cidade - UF</p>
+                <p><i class="fas fa-map-marker-alt"></i> Rua Pitangas, 1204 - Centro, Campo Mourão - PR</p>
                 <ul class="footer-social-icons">
                     <li><a href="https://www.instagram.com/akrofisio/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                     <li><a href="https://wa.me/554499689629" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
@@ -142,7 +142,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Lógica para o Menu Mobile ---
+            
             const menuToggle = document.querySelector('.menu-toggle');
             const mainNav = document.querySelector('.main-nav');
 
@@ -154,7 +154,6 @@
                     menuToggle.setAttribute('aria-expanded', isExpanded);
                 });
 
-                // Opcional: Fechar menu mobile ao clicar em um item de link
                 mainNav.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', function() {
                         if (mainNav.classList.contains('active')) {
@@ -166,9 +165,8 @@
                 });
             }
 
-            // --- Lógica para abrir/fechar o formulário de contato flutuante ---
             const openFormButton = document.getElementById('open-form-button');
-            const contactFormContent = document.getElementById('contact-form-content'); // O conteúdo interno do formulário
+            const contactFormContent = document.getElementById('contact-form-content'); 
             const closeFormButton = document.getElementById('close-form-button');
 
             if (openFormButton && contactFormContent && closeFormButton) {
@@ -185,37 +183,37 @@
                 });
             }
 
-            // --- Lógica para Arrastar o Formulário Flutuante ---
+        
             const draggableWrapper = document.getElementById('contact-form-wrapper'); 
-            const dragHandle = openFormButton; // O botão de abertura será a alça de arrasto
+            const dragHandle = openFormButton; 
 
             let isDragging = false;
-            let offsetX, offsetY; // Deslocamento do mouse em relação ao canto do elemento
+            let offsetX, offsetY; 
 
             if (draggableWrapper && dragHandle) {
                 dragHandle.addEventListener('mousedown', (e) => {
-                    // Só permite arrastar se o formulário estiver visível
+    
                     if (!contactFormContent.classList.contains('form-visible')) {
                         return; 
                     }
 
                     isDragging = true;
 
-                    // Garante que o elemento esteja posicionado fixo e com z-index alto
+                    
                     draggableWrapper.style.position = 'fixed'; 
                     draggableWrapper.style.zIndex = '1000'; 
 
-                    // Remove as propriedades bottom e right para que left e top possam controlar a posição
+                
                     draggableWrapper.style.bottom = 'auto';
                     draggableWrapper.style.right = 'auto';
 
-                    // Calcula a diferença entre a posição do mouse e o canto superior esquerdo do elemento
+        
                     const rect = draggableWrapper.getBoundingClientRect();
                     offsetX = e.clientX - rect.left;
                     offsetY = e.clientY - rect.top;
 
-                    draggableWrapper.classList.add('dragging'); // Adiciona classe para feedback visual
-                    e.preventDefault(); // Evita a seleção de texto e outros comportamentos padrão do navegador
+                    draggableWrapper.classList.add('dragging'); 
+                    e.preventDefault(); 
                 });
 
                 document.addEventListener('mousemove', (e) => {
@@ -224,16 +222,16 @@
                     let newX = e.clientX - offsetX;
                     let newY = e.clientY - offsetY;
 
-                    // Limita o arrasto para que o formulário não saia da tela
+                
                     const viewportWidth = window.innerWidth;
                     const viewportHeight = window.innerHeight;
                     const draggableWidth = draggableWrapper.offsetWidth;
                     const draggableHeight = draggableWrapper.offsetHeight;
 
-                    if (newX < 0) newX = 0; // Impede sair pela esquerda
-                    if (newX + draggableWidth > viewportWidth) newX = viewportWidth - draggableWidth; // Impede sair pela direita
-                    if (newY < 0) newY = 0; // Impede sair pelo topo
-                    if (newY + draggableHeight > viewportHeight) newY = viewportHeight - draggableHeight; // Impede sair por baixo
+                    if (newX < 0) newX = 0; 
+                    if (newX + draggableWidth > viewportWidth) newX = viewportWidth - draggableWidth; 
+                    if (newY < 0) newY = 0; 
+                    if (newY + draggableHeight > viewportHeight) newY = viewportHeight - draggableHeight;
 
                     draggableWrapper.style.left = `${newX}px`;
                     draggableWrapper.style.top = `${newY}px`;
@@ -241,43 +239,43 @@
 
                 document.addEventListener('mouseup', () => {
                     isDragging = false;
-                    draggableWrapper.classList.remove('dragging'); // Remove a classe 'dragging'
+                    draggableWrapper.classList.remove('dragging'); 
                 });
 
-                // Previne o comportamento padrão de arrastar imagens ou links no botão
+            
                 dragHandle.ondragstart = function() { return false; };
             }
 
-            // --- Lógica para Esconder/Mostrar HEADER e Formulário Flutuante ao rolar ---
-            const pageHeader = document.querySelector('header'); // Seleciona o elemento <header>
-            // draggableWrapper e contactFormContent já estão definidos acima
-            // mainNav já está definido acima
-            let lastScrollY = window.scrollY; // Armazena a última posição de rolagem
 
-            // Verifica se os elementos existem na página
+            const pageHeader = document.querySelector('header'); 
+
+        
+            let lastScrollY = window.scrollY; 
+
+        
             if (pageHeader && mainNav && draggableWrapper && contactFormContent) { 
                 window.addEventListener('scroll', function() {
-                    // Condição para mostrar o header: rolagem para cima OU no topo OU menu mobile ativo
+                
                     let shouldShowHeader = window.scrollY < lastScrollY || window.scrollY <= 50 || mainNav.classList.contains('active');
                     
-                    // Condição para mostrar o formulário flutuante: rolagem para cima OU no topo OU formulário visível
+                    
                     let shouldShowFloatingForm = window.scrollY < lastScrollY || window.scrollY <= 50 || contactFormContent.classList.contains('form-visible');
 
-                    // Aplica a classe 'hidden' ao header
+        
                     if (shouldShowHeader) {
                         pageHeader.classList.remove('hidden');
-                    } else if (window.scrollY > lastScrollY && window.scrollY > 150) { // Esconde apenas se rolar para baixo e passar do limiar
+                    } else if (window.scrollY > lastScrollY && window.scrollY > 150) { 
                         pageHeader.classList.add('hidden');
                     }
 
-                    // Aplica a classe 'hidden' ao formulário flutuante
+                
                     if (shouldShowFloatingForm) {
                         draggableWrapper.classList.remove('hidden');
-                    } else if (window.scrollY > lastScrollY && window.scrollY > 150) { // Esconde apenas se rolar para baixo e passar do limiar
+                    } else if (window.scrollY > lastScrollY && window.scrollY > 150) { 
                         draggableWrapper.classList.add('hidden');
                     }
 
-                    lastScrollY = window.scrollY; // Atualiza a última posição de rolagem
+                    lastScrollY = window.scrollY; 
                 });
             }
         });

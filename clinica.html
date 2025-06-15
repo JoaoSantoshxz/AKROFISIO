@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AKROFISIO - Nossa Estrutura</title>
-    <!-- Correção: 'xintegrity' para 'integrity' -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="imagem/logo.png" type="image/png">
-    <!-- Adicione a importação da fonte "Inter" ou "Stevie Sans" aqui, se ainda não estiver fazendo isso -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -34,7 +34,6 @@
         </div>
     </header>
     
-    <!-- Fim do formulário flutuante -->
 
     <main>
         <section class="estrutura-intro">
@@ -48,7 +47,7 @@
             <div class="container">
                 <div class="ambiente-item">
                     <div class="ambiente-gallery">
-                        <!-- Adicionado data-fullsrc para a imagem em tela cheia -->
+                
                         <img src="imagem/img1.jpeg" alt="[Image of Recepção da Clínica Akrofisio 1]" data-fullsrc="imagem/img1.jpeg">
                         <img src="imagem/img2.jpeg" alt="[Image of Recepção da Clínica Akrofisio 2]" data-fullsrc="imagem/img2.jpeg">
                         <img src="imagem/img3.jpeg" alt="[Image of Recepção da Clínica Akrofisio 3]" data-fullsrc="imagem/img3.jpeg">
@@ -137,9 +136,9 @@
 
     <footer>
         <div class="footer-contact-info">
-            <p><i class="fas fa-phone-alt"></i> (44) 9968-9629</p>
+            <p><i class="fas fa-phone-alt"></i> (44) 99107-6554</p>
             <p><i class="fas fa-envelope"></i> contato@akrofisio.com.br</p>
-            <p><i class="fas fa-map-marker-alt"></i> Av. Exemplo, 123 - Centro, Cidade - UF</p>
+            <p><i class="fas fa-map-marker-alt"></i> Rua Pitangas, 1204 - Centro, Campo Mourão - PR</p>
             <ul class="footer-social-icons">
                 <li><a href="https://www.instagram.com/akrofisio/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                 <li><a href="https://wa.me/554499689629" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
@@ -147,18 +146,17 @@
             <div class="container">
                 <p>&copy; 2025 Clínica de Fisioterapia AKROFISIO. Todos os direitos reservados.</p>
                 <nav>
-                    <!-- Links do rodapé, se houver -->
+    
                 </nav>
             </div>
         </div>
     </footer>
 
-    <!-- Botão "Voltar ao Topo" -->
     <button id="scroll-to-top" aria-label="Voltar ao topo">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Estrutura do Lightbox/Modal de Imagem -->
+
     <div id="lightbox-modal">
         <span class="close-button" aria-label="Fechar imagem">X</span>
         <img id="lightbox-image" src="" alt="Imagem em destaque">
@@ -167,31 +165,18 @@
     <script src="js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    // --- Variáveis Globais e Seletores de Elementos ---
+
 
     // Menu Hambúrguer
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.querySelector('.main-nav');
     const navList = document.querySelector('#nav-list');
-    const pageHeader = document.querySelector('header'); // Seleciona o elemento <header>
-
-    // Formulário de Contato Flutuante (Contato Rápido)
-    const contactFormWrapper = document.getElementById('contact-form-wrapper'); // O container arrastável do formulário
-    const openFormButton = document.getElementById('open-form-button'); // O botão "Contato Rápido"
-    const closeFormButton = document.getElementById('close-form-button');
-    const contactFormContent = document.getElementById('contact-form-content'); // O conteúdo do formulário em si
-    const quickContactForm = document.getElementById('quick-contact-form');
-    const formFeedback = document.querySelector('.form-feedback'); // Parágrafo para feedback do formulário rápido
-
-    // Elementos para animação de aparição ao rolar (Scroll Reveal)
+    const pageHeader = document.querySelector('header'); 
+    
     const ambienteItems = document.querySelectorAll('.ambiente-item');
     const servicoItems = document.querySelectorAll('.servico-item'); // Pode não existir em todas as páginas
 
-    // Para o botão de "Voltar ao Topo"
     const scrollToTopButton = document.getElementById('scroll-to-top');
-
-    // Para a lógica de esconder/mostrar header e formulário flutuante ao rolar
-    let lastScrollY = window.scrollY;
 
     // Lightbox/Modal de Imagem
     const lightboxModal = document.getElementById('lightbox-modal');
